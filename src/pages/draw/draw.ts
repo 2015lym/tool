@@ -1,29 +1,29 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { ToastService } from '../../app/services/toast.service';
-import { DrawPage } from '../draw/draw';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-draw',
+  templateUrl: 'draw.html'
 })
-export class HomePage {
+export class DrawPage {
 
-
+  private title: string = '抽签';
   private items: Array<string> = [];
 
   constructor(
     public navCtrl: NavController,
+    public navParams: NavParams,
     public alertCtrl: AlertController,
     private toast: ToastService,
     private storage: Storage) {
-
+    this.title = this.navParams.get('itemKey');
   }
 
   ionViewDidEnter() {
-    this.storage.get('homeList').then((data) => {
+    this.storage.get(this.title).then((data) => {
       if (data) {
         this.items = data;
       } else {
@@ -32,21 +32,13 @@ export class HomePage {
     });
   }
 
-  itemSelected(item: string) {
-    let params: Object = {
-      itemKey: item
-    };
-    this.navCtrl.push(DrawPage, params);
-  }
-
-
   private addItem(): void {
     let prompt = this.alertCtrl.create({
       title: '请输入添加内容',
       inputs: [
         {
           name: 'title',
-          placeholder: '标题'
+          placeholder: '选项'
         },
       ],
       buttons: [
@@ -71,7 +63,7 @@ export class HomePage {
     if (itemTitle.length === 0) {
       this.toast.show('内容过短');
       return false;
-    } else if (itemTitle.length > 10) {
+    } else if (itemTitle.length > 15) {
       this.toast.show('内容过长');
       return false;
     } else {
@@ -82,7 +74,7 @@ export class HomePage {
         }
       }
       this.items.push(itemTitle);
-      this.storage.set('homeList', this.items);
+      this.storage.set(this.title, this.items);
       return true;
     }
   }
@@ -90,7 +82,20 @@ export class HomePage {
   private deleteItem(item: string): void {
     let index = this.items.indexOf(item);
     this.items.splice(index, 1);
-    this.storage.set('homeList', this.items);
+    this.storage.set(this.title, this.items);
     this.storage.remove(item);
+  }
+
+  draw() {
+    if (this.items.length === 0) {
+      this.toast.show('没有数据');
+    } else {
+      let randomNumber: number = this.getRandomNumber(0, this.items.length);
+      this.toast.show(this.items[randomNumber]);
+    }
+  }
+
+  getRandomNumber(begin: number, end: number): number {
+    return Math.floor(Math.random() * (end - begin)) + begin;
   }
 }
