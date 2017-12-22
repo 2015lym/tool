@@ -51,9 +51,9 @@ export class HomePage {
       ],
       buttons: [
         {
-          text: '取消',
+          text: '关闭',
           handler: data => {
-            console.log('点击取消按钮');
+            console.log('点击关闭按钮');
           }
         },
         {

@@ -20,3 +20,9 @@ ion-content {
     background-color: #efeeee;
   }
 }
+
+ion-list {
+  &.margin-top-list {
+    margin-top: 20px;
+  }
+}
