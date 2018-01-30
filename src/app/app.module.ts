@@ -13,6 +13,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
 import { ToastService } from './services/toast.service';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
+import { BackButtonService } from './backButton.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
     SplashScreen,
     ToastService,
     AlertController,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    BackButtonService
   ]
 })
 export class AppModule {}
