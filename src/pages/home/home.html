@@ -1,9 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>首页</ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="addItem()">添加</button>
-    </ion-buttons>
+    <ion-title>抽签</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -20,4 +17,10 @@
     </ion-item-sliding>
   </ion-list>
 
+  <ion-fab bottom right>
+    <button ion-fab color="secondary" (click)="addItem()">
+      <ion-icon name="add">
+      </ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
