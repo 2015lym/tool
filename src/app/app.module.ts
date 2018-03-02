@@ -14,6 +14,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ToastService } from './services/toast.service';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { BackButtonService } from './backButton.service';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { BackButtonService } from './backButton.service';
     ToastService,
     AlertController,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    BackButtonService
+    BackButtonService,
+    InAppBrowser
   ]
 })
 export class AppModule {}

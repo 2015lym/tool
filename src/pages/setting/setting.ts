@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { ToastService } from '../../app/services/toast.service';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @Component({
   selector: 'page-setting',
@@ -12,7 +13,8 @@ export class SettingPage {
   constructor(
     public navCtrl: NavController,
     public alertCtrl: AlertController,
-    private toast: ToastService) {
+    private toast: ToastService,
+    private inAppBrowser: InAppBrowser) {
 
   }
 
@@ -20,22 +22,11 @@ export class SettingPage {
     let prompt = this.alertCtrl.create({
       title: '随机数测试',
       inputs: [
-        {
-          name: 'start',
-          placeholder: '起始'
-        },
-        {
-          name: 'end',
-          placeholder: '终止'
-        }
+        { name: 'start', placeholder: '起始' },
+        { name: 'end', placeholder: '终止' }
       ],
       buttons: [
-        {
-          text: '关闭',
-          handler: data => {
-            console.log('点击关闭按钮');
-          }
-        },
+        { text: '关闭' },
         {
           text: '测试',
           handler: data => {
@@ -82,7 +73,30 @@ export class SettingPage {
     }
   }
 
+  /**
+   * 取得随机数
+   */
   showRandomNumber(begin: number, end: number): number {
     return Math.floor(Math.random() * (end - begin)) + begin;
+  }
+
+  /**
+   * 更新 App
+   */
+  updateApp() {
+    let prompt = this.alertCtrl.create({
+      title: '是否跳转到下载地址',
+      buttons: [
+        { text: '取消' },
+        {
+          text: '确定',
+          handler: data => {
+            this.inAppBrowser.create('https://www.pgyer.com/3VOV');
+            return true;
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 }

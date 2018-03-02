@@ -26,7 +26,7 @@
     </ion-item-group>
   </ion-list>
 
-  <ion-fab bottom right>
+  <ion-fab *ngIf="!isEdit" bottom right>
     <button ion-fab color="secondary" (click)="addItem()">
       <ion-icon name="add">
       </ion-icon>

@@ -66,12 +66,6 @@ export class DrawPage {
       this.toast.show('内容过长');
       return false;
     } else {
-      for (let key of this.items) {
-        if (itemTitle === key) {
-          this.toast.show('已存在');
-          return false;
-        }
-      }
       this.items.push(itemTitle);
       this.storage.set(this.title, this.items);
       return true;
