@@ -1,20 +1,25 @@
 <ion-header>
   <ion-navbar>
     <ion-title>抽签</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="editItem()">{{editText}}</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="content-gray">
 
   <ion-list class="margin-top-list">
-    <ion-item-sliding *ngFor="let item of items">
-      <button ion-item (click)="itemSelected(item)">
-        {{ item }}
-      </button>
-      <ion-item-options>
-        <button ion-button color="danger" (click)="deleteItem(item)">删除</button>
-      </ion-item-options>
-    </ion-item-sliding>
+    <ion-item-group reorder={{isEdit}} (ionItemReorder)="reorderItems($event)">
+      <ion-item-sliding *ngFor="let item of items">
+        <button ion-item (click)="itemSelected(item)">
+          {{ item }}
+        </button>
+        <ion-item-options>
+          <button ion-button color="danger" (click)="deleteItem(item)">删除</button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
   </ion-list>
 
   <ion-fab bottom right>

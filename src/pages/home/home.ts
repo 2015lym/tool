@@ -13,6 +13,8 @@ export class HomePage {
 
 
   private items: Array<string> = [];
+  private isEdit: boolean = false;
+  private editText: string = '编辑';
 
   constructor(
     public navCtrl: NavController,
@@ -22,6 +24,9 @@ export class HomePage {
 
   }
 
+  /**
+   * 将要进入页面
+   */
   ionViewDidEnter() {
     this.storage.get('homeList').then((data) => {
       if (data) {
@@ -32,6 +37,9 @@ export class HomePage {
     });
   }
 
+  /**
+   * 点击
+   */
   itemSelected(item: string) {
     let params: Object = {
       itemKey: item
@@ -39,7 +47,9 @@ export class HomePage {
     this.navCtrl.push(DrawPage, params);
   }
 
-
+  /**
+   * 添加
+   */
   private addItem(): void {
     let prompt = this.alertCtrl.create({
       title: '请输入添加内容',
@@ -67,6 +77,9 @@ export class HomePage {
     prompt.present();
   }
 
+  /**
+   * 保存校验
+   */
   private savaItem(itemTitle: string): boolean {
     if (itemTitle.length === 0) {
       this.toast.show('内容过短');
@@ -87,10 +100,31 @@ export class HomePage {
     }
   }
 
+  /**
+   * 删除
+   */
   private deleteItem(item: string): void {
     let index = this.items.indexOf(item);
     this.items.splice(index, 1);
     this.storage.set('homeList', this.items);
     this.storage.remove(item);
+  }
+
+  /**
+   * 编辑
+   */
+  private editItem() {
+    this.isEdit = !this.isEdit;
+    this.editText = this.isEdit === true ? '完成' : '编辑';
+  }
+
+  /**
+   * 拖动排序
+   */
+  private reorderItems(indexes) {
+    let element = this.items[indexes.from];
+    this.items.splice(indexes.from, 1);
+    this.items.splice(indexes.to, 0, element);
+    this.storage.set('homeList', this.items);
   }
 }

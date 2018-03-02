@@ -12,6 +12,8 @@ export class DrawPage {
 
   private title: string = '抽签';
   private items: Array<string> = [];
+  private isEdit: boolean = false;
+  private editText: string = '编辑';
 
   constructor(
     public navCtrl: NavController,
@@ -97,5 +99,23 @@ export class DrawPage {
 
   getRandomNumber(begin: number, end: number): number {
     return Math.floor(Math.random() * (end - begin)) + begin;
+  }
+
+  /**
+   * 编辑
+   */
+  private editItem() {
+    this.isEdit = !this.isEdit;
+    this.editText = this.isEdit === true ? '完成' : '编辑';
+  }
+
+  /**
+   * 拖动排序
+   */
+  private reorderItems(indexes) {
+    let element = this.items[indexes.from];
+    this.items.splice(indexes.from, 1);
+    this.items.splice(indexes.to, 0, element);
+    this.storage.set(this.title, this.items);
   }
 }

@@ -4,7 +4,7 @@
       {{title}}
     </ion-title>
     <ion-buttons end>
-      <button ion-button (click)="addItem()">添加</button>
+      <button ion-button (click)="editItem()">{{editText}}</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -14,14 +14,22 @@
     <button ion-button block (click)="draw()">抽签</button>
   </div>
   <ion-list>
-    <ion-item-sliding *ngFor="let item of items">
-      <button ion-item>
-        {{ item }}
-      </button>
-      <ion-item-options>
-        <button ion-button color="danger" (click)="deleteItem(item)">删除</button>
-      </ion-item-options>
-    </ion-item-sliding>
+    <ion-item-group reorder={{isEdit}} (ionItemReorder)="reorderItems($event)">
+      <ion-item-sliding *ngFor="let item of items">
+        <button ion-item>
+          {{ item }}
+        </button>
+        <ion-item-options>
+          <button ion-button color="danger" (click)="deleteItem(item)">删除</button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
   </ion-list>
 
+  <ion-fab bottom right>
+    <button ion-fab color="secondary" (click)="addItem()">
+      <ion-icon name="add">
+      </ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
