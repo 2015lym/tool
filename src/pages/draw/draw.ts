@@ -22,9 +22,6 @@ export class DrawPage {
     private toast: ToastService,
     private storage: Storage) {
     this.title = this.navParams.get('itemKey');
-  }
-
-  ionViewDidEnter() {
     this.storage.get(this.title).then((data) => {
       if (data) {
         this.items = data;
