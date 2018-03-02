@@ -91,7 +91,7 @@ export class SettingPage {
         {
           text: '确定',
           handler: data => {
-            this.inAppBrowser.create('https://www.pgyer.com/3VOV');
+            this.inAppBrowser.create('https://www.pgyer.com/3VOV', '_system');
             return true;
           }
         }
