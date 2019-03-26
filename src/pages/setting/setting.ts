@@ -77,7 +77,34 @@ export class SettingPage {
    * 取得随机数
    */
   showRandomNumber(begin: number, end: number): number {
+    end = end + 1;
     return Math.floor(Math.random() * (end - begin)) + begin;
+  }
+
+  getCoin() {
+    let a: number = this.showRandomNumber(0, 1);
+    let b: number = this.showRandomNumber(0, 1);
+    let c: number = this.showRandomNumber(0, 1);
+
+    let prompt = this.alertCtrl.create({
+      title: '结果',
+      buttons: [
+        { text: '取消' },
+        {
+          text: '确定',
+          handler: data => {
+            this.inAppBrowser.create('https://www.pgyer.com/3VOV', '_system');
+            return true;
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  // 
+  getWord(): string {
+    return '';
   }
 
   /**
