@@ -81,30 +81,27 @@ export class SettingPage {
     return Math.floor(Math.random() * (end - begin)) + begin;
   }
 
+  /**
+   * 获取三正反
+   */
   getCoin() {
-    let a: number = this.showRandomNumber(0, 1);
-    let b: number = this.showRandomNumber(0, 1);
-    let c: number = this.showRandomNumber(0, 1);
+    let result: string = this.getWord() + this.getWord() + this.getWord();
 
     let prompt = this.alertCtrl.create({
-      title: '结果',
+      title: result,
       buttons: [
-        { text: '取消' },
-        {
-          text: '确定',
-          handler: data => {
-            this.inAppBrowser.create('https://www.pgyer.com/3VOV', '_system');
-            return true;
-          }
-        }
+        { text: '确定' }
       ]
     });
     prompt.present();
   }
 
-  // 
+  /**
+   * 获取文字
+   */
   getWord(): string {
-    return '';
+    let random: number = this.showRandomNumber(0, 1)
+    return random === 0 ? '反' : '正';
   }
 
   /**
