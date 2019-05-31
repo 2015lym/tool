@@ -10,12 +10,21 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 })
 export class SettingPage {
 
+  volume: number = 0;
+
   constructor(
     public navCtrl: NavController,
     public alertCtrl: AlertController,
     private toast: ToastService,
     private inAppBrowser: InAppBrowser) {
 
+  }
+
+  ionViewWillEnter() {
+    var VolumeControl = (<any>window).cordova.plugins.VolumeControl;
+    VolumeControl.getVolume((volume) => {
+      this.volume = volume * 100;
+    });
   }
 
   getRandomNumber() {
@@ -62,6 +71,26 @@ export class SettingPage {
   }
 
   /**
+   * 获取三正反
+   */
+  getCoin() {
+    let result: string = this.getWord() + this.getWord() + this.getWord();
+
+    let prompt = this.alertCtrl.create({
+      title: result,
+      buttons: [
+        { text: '确定' }
+      ]
+    });
+    prompt.present();
+  }
+
+  volumnChange() {
+    var VolumeControl = (<any>window).cordova.plugins.VolumeControl;
+    VolumeControl.setVolume(this.volume / 100);
+  }
+
+  /**
    * 判断是否是纯数字
    */
   checkStringIsNumber(checkString: string): boolean {
@@ -79,21 +108,6 @@ export class SettingPage {
   showRandomNumber(begin: number, end: number): number {
     end = end + 1;
     return Math.floor(Math.random() * (end - begin)) + begin;
-  }
-
-  /**
-   * 获取三正反
-   */
-  getCoin() {
-    let result: string = this.getWord() + this.getWord() + this.getWord();
-
-    let prompt = this.alertCtrl.create({
-      title: result,
-      buttons: [
-        { text: '确定' }
-      ]
-    });
-    prompt.present();
   }
 
   /**

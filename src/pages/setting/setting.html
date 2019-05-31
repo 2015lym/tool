@@ -22,11 +22,22 @@
       <ion-icon name="contrast" item-start></ion-icon>
       三个硬币
     </button>
-    <button ion-item (click)="updateApp()">
-      <ion-icon name="download" item-start></ion-icon>
-      应用更新
-      <span item-end>V 1.0.0</span>
+    <button ion-item>
+      <ion-icon name="volume-up" item-start></ion-icon>
+      音量调节
+      <span item-end>{{volume}}</span>
     </button>
+    <ion-item>
+      <ion-range min="0" max="100" step="1" [(ngModel)]="volume" (ionChange)="volumnChange()">
+        <ion-label range-left>0</ion-label>
+        <ion-label range-right>100</ion-label>
+      </ion-range>
+    </ion-item>
+    <button ion-item (click)="updateApp()">
+        <ion-icon name="download" item-start></ion-icon>
+        应用更新
+        <span item-end>V 1.1.0</span>
+      </button>
   </ion-list>
 
 </ion-content>
